@@ -24,31 +24,29 @@ class Rectangle:
     
     # Returns a string that represents the shape using lines of "*"
     def get_picture(self):
-        if self.width>50 or self.height>50:
-            return "Too big for picture."
-        else: 
-            ret = ''
-            for i in range(self.height):
-                ret += '*'*self.width + '\n'
-            return ret
+        if self.width>50 or self.height>50: return "Too big for picture."
+        else: return ('*'*self.width + '\n')*self.height
 
     # Returns the number of times the passed in shape could fit inside the shape (with no rotations)
     def get_amount_inside(self, rect_inst):
         return (self.width//rect_inst.width) * (self.height//rect_inst.height)
 
-#class Square(Rectangle):
+class Square(Rectangle):
+    def __init__(self, side):
+        self.side = side
+        super().__init__(side, side)
 
+    # if an instance of a Square is represented as a string, it should look like: Square(side=9)
+    def __str__(self):
+        return 'Square(side=' + str(self.side) + ')'
 
-# test --------------------------------------------
-a = Rectangle(10, 5)
-b = Rectangle(2, 2)
-c = Rectangle(7, 3)
+    def set_side(self, new_side):
+        self.side = new_side
+        super().set_width(new_side)
+        super().set_height(new_side)
 
-print(a)
-print(a.get_picture())
-print(b.get_picture())
-print(c.get_picture())
+    def set_width(self, new_width):
+        self.set_side(new_width)
 
-print(a.get_amount_inside(b), a.get_amount_inside(c), a.get_amount_inside(a))
-print(c.get_amount_inside(a), c.get_amount_inside(b))
-
+    def set_height(self, new_height):
+        self.set_side(new_height)
